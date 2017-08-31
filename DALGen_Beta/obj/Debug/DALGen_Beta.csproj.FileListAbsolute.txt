@@ -1,0 +1,11 @@
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\bin\Debug\DALGen_Beta.exe.config
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\bin\Debug\DALGen_Beta.exe
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\bin\Debug\DALGen_Beta.pdb
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.csprojResolveAssemblyReference.cache
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.Properties.Resources.resources
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.csproj.GenerateResource.Cache
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.csproj.CoreCompileInputs.cache
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.exe
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.pdb
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.MainForm.resources
+C:\Users\link7\source\repos\DALGen_Beta\DALGen_Beta\obj\Debug\DALGen_Beta.SQLAttributePicker.resources
