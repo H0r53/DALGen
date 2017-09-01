@@ -70,6 +70,7 @@
             this.chkPrimaryKey.TabIndex = 3;
             this.chkPrimaryKey.Text = "Is Primary Key";
             this.chkPrimaryKey.UseVisualStyleBackColor = true;
+            this.chkPrimaryKey.CheckedChanged += new System.EventHandler(this.chkPrimaryKey_CheckedChanged);
             // 
             // chkForeignKey
             // 

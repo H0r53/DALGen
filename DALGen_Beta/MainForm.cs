@@ -30,17 +30,18 @@ namespace DALGen_Beta
             chkCSharp.Checked = false;
             chkJava.Checked = false;
             chkPython.Checked = false;
-            chkMySQL.Checked = false;
-            chkOracle.Checked = false;
-            chkTSQL.Checked = false;
+            radTSQL.Checked = false;
+            radMySQL.Checked = false;
+            radOracle.Checked = false;
             
             txtSchemaName.Text = "dbo";
             txtEntityName.Text = String.Empty;
+            txtNamespace.Text = String.Empty;
+            radTSQL.Checked = true;
+            pnlAttributes.Controls.Clear();
             attributeList.Clear();
-
-
             // Add one attribute by default
-            var picker = new SQLAttributePicker();
+            var picker = new SQLAttributePicker(DBMSType.TSQL);
             attributeList.Add(picker);
             pnlAttributes.Controls.Add(picker);
         }
@@ -52,7 +53,7 @@ namespace DALGen_Beta
 
         private void btnAddAttribute_Click(object sender, EventArgs e)
         {
-            var picker = new SQLAttributePicker();
+            var picker = new SQLAttributePicker(GetDBMSType());
             picker.Location = new Point(0, (13 * (attributeList.Count)) + ((attributeList.Count) * picker.Height) + pnlAttributes.AutoScrollPosition.Y);
 
             attributeList.Add(picker);
@@ -80,17 +81,17 @@ namespace DALGen_Beta
 
                 String outputPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                if (chkTSQL.Checked)
+                if (radTSQL.Checked)
                 {
                     // Generate TSQL Create Table and Stored Procedure scripts.
                     var tsqlGenerator = new TSQLTemplate();
                     tsqlGenerator.GenerateContent(entity, outputPath);
                 }
-                if (chkMySQL.Checked)
+                if (radMySQL.Checked)
                 {
                     // Generate MySQL Create Table and Stored Procedure scripts.
                 }
-                if (chkOracle.Checked)
+                if (radOracle.Checked)
                 {
                     // Generate Oracle Create Table and Stored Procedure scripts.
                 }
@@ -120,7 +121,7 @@ namespace DALGen_Beta
             InputValidationResult result = InputValidationResult.VALID;
 
             if (!chkCPP.Checked && !chkCSharp.Checked && !chkJava.Checked && !chkPython.Checked
-                && !chkMySQL.Checked && !chkOracle.Checked && !chkTSQL.Checked)
+                && !radMySQL.Checked && !radOracle.Checked && !radTSQL.Checked)
             {
                 result = InputValidationResult.NO_OUTPUT;
             }
@@ -178,6 +179,42 @@ namespace DALGen_Beta
 
             // Display error dialog with a message for the result
             MessageBox.Show(this, message, "Input Validation Error", MessageBoxButtons.OKCancel);
+        }
+
+        private void radTSQL_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlAttributes.Controls.Clear();
+            attributeList.Clear();
+
+            if (radTSQL.Checked)
+            {
+                // Add one attribute by default
+                var picker = new SQLAttributePicker(DBMSType.TSQL);
+                attributeList.Add(picker);
+                pnlAttributes.Controls.Add(picker);
+            }
+        }
+
+        private DBMSType GetDBMSType()
+        {
+            if (radTSQL.Checked)
+                return DBMSType.TSQL;
+            else if (radMySQL.Checked)
+                return DBMSType.ORACLE;
+            else if (radOracle.Checked)
+                return DBMSType.ORACLE;
+            else
+                return DBMSType.UNKNOWN;
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitializeForm();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

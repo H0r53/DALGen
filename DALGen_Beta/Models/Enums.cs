@@ -8,6 +8,16 @@ namespace DALGen_Beta
 {
     public enum DataType
     {
+        // TSQL specific
+        BIGINT,
+        DECIMAL,
+        MONEY,
+        NUMERIC,
+        SMALLINT,
+        SMALLMONEY,
+        TINYINT,
+        FLOAT,
+        REAL,
         BIT,
         INT,
         CHAR,
@@ -16,7 +26,20 @@ namespace DALGen_Beta
         NVARCHAR,
         DATE,
         DATETIME,
-        DATETIME2
+        DATETIME2,
+        DATETIMEOFFSET,
+        SMALLDATETIME,
+        TEXT,
+        NTEXT,
+        BINARY,
+        VARBINARY,
+        IMAGE
+
+
+        // MySQL Specific
+
+
+        // Oracle Specific
     }
 
     public enum InputValidationResult
@@ -30,5 +53,13 @@ namespace DALGen_Beta
         INVALID_ATTRIBUTE_SIZE,
         INVALID_ATTRIBUTE_REF_ENTITY,
         INVALID_ATTRIBUTE_REF_ATTRIBUTE
+    }
+
+    public enum DBMSType
+    {
+        TSQL,
+        MYSQL,
+        ORACLE,
+        UNKNOWN
     }
 }

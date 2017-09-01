@@ -44,9 +44,6 @@
             this.chkCPP = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkOracle = new System.Windows.Forms.CheckBox();
-            this.chkMySQL = new System.Windows.Forms.CheckBox();
-            this.chkTSQL = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtEntityName = new System.Windows.Forms.TextBox();
@@ -59,6 +56,9 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnAddAttribute = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.radTSQL = new System.Windows.Forms.RadioButton();
+            this.radMySQL = new System.Windows.Forms.RadioButton();
+            this.radOracle = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -95,8 +95,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -109,8 +110,9 @@
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -135,15 +137,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radOracle);
+            this.groupBox1.Controls.Add(this.radMySQL);
+            this.groupBox1.Controls.Add(this.radTSQL);
             this.groupBox1.Controls.Add(this.chkJava);
             this.groupBox1.Controls.Add(this.chkPython);
             this.groupBox1.Controls.Add(this.chkCSharp);
             this.groupBox1.Controls.Add(this.chkCPP);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.chkOracle);
-            this.groupBox1.Controls.Add(this.chkMySQL);
-            this.groupBox1.Controls.Add(this.chkTSQL);
             this.groupBox1.Location = new System.Drawing.Point(25, 100);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(637, 170);
@@ -208,36 +210,6 @@
             this.label1.Size = new System.Drawing.Size(170, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "DBMS Stored Procedures";
-            // 
-            // chkOracle
-            // 
-            this.chkOracle.AutoSize = true;
-            this.chkOracle.Location = new System.Drawing.Point(25, 127);
-            this.chkOracle.Name = "chkOracle";
-            this.chkOracle.Size = new System.Drawing.Size(72, 21);
-            this.chkOracle.TabIndex = 2;
-            this.chkOracle.Text = "Oracle";
-            this.chkOracle.UseVisualStyleBackColor = true;
-            // 
-            // chkMySQL
-            // 
-            this.chkMySQL.AutoSize = true;
-            this.chkMySQL.Location = new System.Drawing.Point(25, 99);
-            this.chkMySQL.Name = "chkMySQL";
-            this.chkMySQL.Size = new System.Drawing.Size(80, 21);
-            this.chkMySQL.TabIndex = 1;
-            this.chkMySQL.Text = "My SQL";
-            this.chkMySQL.UseVisualStyleBackColor = true;
-            // 
-            // chkTSQL
-            // 
-            this.chkTSQL.AutoSize = true;
-            this.chkTSQL.Location = new System.Drawing.Point(25, 72);
-            this.chkTSQL.Name = "chkTSQL";
-            this.chkTSQL.Size = new System.Drawing.Size(160, 21);
-            this.chkTSQL.TabIndex = 0;
-            this.chkTSQL.Text = "T-SQL (SQL Server)";
-            this.chkTSQL.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -345,6 +317,42 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Attributes";
             // 
+            // radTSQL
+            // 
+            this.radTSQL.AutoSize = true;
+            this.radTSQL.Location = new System.Drawing.Point(30, 72);
+            this.radTSQL.Name = "radTSQL";
+            this.radTSQL.Size = new System.Drawing.Size(159, 21);
+            this.radTSQL.TabIndex = 0;
+            this.radTSQL.TabStop = true;
+            this.radTSQL.Text = "SQL Server (T-SQL)";
+            this.radTSQL.UseVisualStyleBackColor = true;
+            this.radTSQL.CheckedChanged += new System.EventHandler(this.radTSQL_CheckedChanged);
+            // 
+            // radMySQL
+            // 
+            this.radMySQL.AutoSize = true;
+            this.radMySQL.Enabled = false;
+            this.radMySQL.Location = new System.Drawing.Point(30, 99);
+            this.radMySQL.Name = "radMySQL";
+            this.radMySQL.Size = new System.Drawing.Size(75, 21);
+            this.radMySQL.TabIndex = 1;
+            this.radMySQL.TabStop = true;
+            this.radMySQL.Text = "MySQL";
+            this.radMySQL.UseVisualStyleBackColor = true;
+            // 
+            // radOracle
+            // 
+            this.radOracle.AutoSize = true;
+            this.radOracle.Enabled = false;
+            this.radOracle.Location = new System.Drawing.Point(30, 126);
+            this.radOracle.Name = "radOracle";
+            this.radOracle.Size = new System.Drawing.Size(71, 21);
+            this.radOracle.TabIndex = 2;
+            this.radOracle.TabStop = true;
+            this.radOracle.Text = "Oracle";
+            this.radOracle.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -395,9 +403,6 @@
         private System.Windows.Forms.CheckBox chkCPP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chkOracle;
-        private System.Windows.Forms.CheckBox chkMySQL;
-        private System.Windows.Forms.CheckBox chkTSQL;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtEntityName;
@@ -410,6 +415,9 @@
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Button btnAddAttribute;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton radOracle;
+        private System.Windows.Forms.RadioButton radMySQL;
+        private System.Windows.Forms.RadioButton radTSQL;
     }
 }
 

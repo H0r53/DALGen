@@ -44,9 +44,13 @@ namespace DALGen_Beta
             }
         }
 
-        public SQLAttributePicker()
+        public SQLAttributePicker(DBMSType dBMSType)
         {
             InitializeComponent();
+
+            if (dBMSType == DBMSType.TSQL)
+                LoadTSQLDropDown();
+            // Add support for other DBMS 
         }
 
         public InputValidationResult ValidateInput()
@@ -57,6 +61,8 @@ namespace DALGen_Beta
                 return InputValidationResult.INVALID_ATTRIBUTE_REF_ENTITY;
             if (String.IsNullOrWhiteSpace(txtReferencingAttribute.Text) && chkForeignKey.Checked)
                 return InputValidationResult.INVALID_ATTRIBUTE_REF_ATTRIBUTE;
+
+            // This needs to be improved to support different size types, for example DECIMAL(8,2)
             int tempInt = 0;
             if (txtSize.Enabled && !String.IsNullOrWhiteSpace(txtSize.Text) && !Int32.TryParse(txtSize.Text,out tempInt))
                 return InputValidationResult.INVALID_ATTRIBUTE_SIZE;
@@ -83,16 +89,35 @@ namespace DALGen_Beta
         {
             txtSize.Text = String.Empty;
             txtSize.Enabled = false;
+        }
 
-            ddlDataType.Items.Add(new Item("bit",(int)DataType.BIT));
-            ddlDataType.Items.Add(new Item("int", (int)DataType.INT));
-            ddlDataType.Items.Add(new Item("char", (int)DataType.CHAR));
-            ddlDataType.Items.Add(new Item("varchar", (int)DataType.VARCHAR));
-            ddlDataType.Items.Add(new Item("nvar", (int)DataType.NCHAR));
-            ddlDataType.Items.Add(new Item("nvarchar", (int)DataType.NVARCHAR));
-            ddlDataType.Items.Add(new Item("date", (int)DataType.DATE));
-            ddlDataType.Items.Add(new Item("datetime", (int)DataType.DATETIME));
-            ddlDataType.Items.Add(new Item("datetime2", (int)DataType.DATETIME2));
+        private void LoadTSQLDropDown()
+        {
+            ddlDataType.Items.Add(new Item("BIGINT", (int)DataType.BIGINT));
+            ddlDataType.Items.Add(new Item("DECIMAL", (int)DataType.DECIMAL));
+            ddlDataType.Items.Add(new Item("MONEY", (int)DataType.MONEY));
+            ddlDataType.Items.Add(new Item("NUMERIC", (int)DataType.NUMERIC));
+            ddlDataType.Items.Add(new Item("SMALLINT", (int)DataType.SMALLINT));
+            ddlDataType.Items.Add(new Item("SMALLMONEY", (int)DataType.SMALLMONEY));
+            ddlDataType.Items.Add(new Item("TINYINT", (int)DataType.TINYINT));
+            ddlDataType.Items.Add(new Item("FLOAT", (int)DataType.FLOAT));
+            ddlDataType.Items.Add(new Item("REAL", (int)DataType.REAL));
+            ddlDataType.Items.Add(new Item("BIT", (int)DataType.BIT));
+            ddlDataType.Items.Add(new Item("INT", (int)DataType.INT));
+            ddlDataType.Items.Add(new Item("CHAR", (int)DataType.CHAR));
+            ddlDataType.Items.Add(new Item("VARCHAR", (int)DataType.VARCHAR));
+            ddlDataType.Items.Add(new Item("NCHAR", (int)DataType.NCHAR));
+            ddlDataType.Items.Add(new Item("NVARCHAR", (int)DataType.NVARCHAR));
+            ddlDataType.Items.Add(new Item("DATE", (int)DataType.DATE));
+            ddlDataType.Items.Add(new Item("DATETIME", (int)DataType.DATETIME));
+            ddlDataType.Items.Add(new Item("DATETIME2", (int)DataType.DATETIME2));
+            ddlDataType.Items.Add(new Item("DATETIMEOFFSET", (int)DataType.DATETIMEOFFSET));
+            ddlDataType.Items.Add(new Item("SMALLDATETIME", (int)DataType.SMALLDATETIME));
+            ddlDataType.Items.Add(new Item("TEXT", (int)DataType.TEXT));
+            ddlDataType.Items.Add(new Item("NTEXT", (int)DataType.NTEXT));
+            ddlDataType.Items.Add(new Item("BINARY", (int)DataType.BINARY));
+            ddlDataType.Items.Add(new Item("VARBINARY", (int)DataType.VARBINARY));
+            ddlDataType.Items.Add(new Item("IMAGE", (int)DataType.IMAGE));
         }
 
         private void chkForeignKey_CheckedChanged(object sender, EventArgs e)
@@ -122,6 +147,31 @@ namespace DALGen_Beta
                     txtSize.Text = String.Empty;
                     txtSize.Enabled = false;
                     break;
+            }
+        }
+
+        private void chkPrimaryKey_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkPrimaryKey.Checked)
+            {
+                bool validIdentity = false;
+                Item selectedItem = (Item)ddlDataType.SelectedItem;
+                switch (selectedItem.Value)
+                {
+                    case (int)DataType.INT:
+                    case (int)DataType.BIGINT:
+                    case (int)DataType.SMALLINT:
+                    case (int)DataType.TINYINT:
+                    case (int)DataType.DECIMAL:
+                    case (int)DataType.NUMERIC:
+                        validIdentity = true;
+                        break;
+                }
+                if (!validIdentity)
+                {
+                    chkPrimaryKey.Checked = false;
+                    MessageBox.Show(this, "Identity attribute must be of data type int, bigint, smallint, tinyint, or decimal or numeric with a scale of 0, unencrypted, and constrained to be nonnullable.", "Input Validation Error", MessageBoxButtons.OKCancel);
+                }
             }
         }
     }
