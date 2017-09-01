@@ -16,6 +16,9 @@ namespace DALGen_Beta
             ****************************/
             string filename = "SQL_" + entity.EntityName;
             string textBuffer = String.Empty;
+            string tempSprocName = String.Empty;
+            string tempParamName = String.Empty;
+            int count = 0;
 
             string path = String.Format(@"{0}\\{1}.sql", outputFilePath, filename);
             using (StreamWriter sw = new StreamWriter(path, false))
@@ -45,8 +48,7 @@ namespace DALGen_Beta
 
                 textBuffer = "\n";
                 textBuffer += "CREATE TABLE " + entity.EntityName + " (\n";
-
-                int count = 0;
+                count = 0;
                 foreach (var attribute in entity.Attributes)
                 {
                     textBuffer += attribute.AttributeName + " " + GetTSQLDataTypeString(attribute.DataType, attribute.AttributeSize);
@@ -79,8 +81,71 @@ namespace DALGen_Beta
                 /****************************
                 // Generate Sprocs
                 ****************************/
-                // Get
+                textBuffer = "\n";
+                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "-- Create default SCRUD sprocs for this table\n";
+                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "\n";
+                sw.WriteLine(textBuffer);
 
+                // Get
+                tempSprocName = "usp_" + entity.EntityName + "_Get";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                textBuffer += "\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "\n";
+                textBuffer += "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "(\n";
+
+                count = 0;
+                foreach(var pk in entity.Attributes.Where(x => x.IsPrimaryKey).ToList())
+                {
+                    tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
+                    textBuffer += "\t" + tempParamName;
+                    if (++count < entity.Attributes.Where(x => x.IsPrimaryKey).ToList().Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += ")\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tSELECT\n";
+
+                count = 0;
+                foreach(var attribute in entity.Attributes)
+                {
+                    textBuffer += "\t\t" + entity.EntityName + ".[" + attribute.AttributeName + "] AS " + "[" + attribute.AttributeName + "]";
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+                textBuffer += "\tFROM " + entity.EntityName + "\n";
+                textBuffer += "\tWHERE\n";
+
+                count = 0;
+                foreach (var pk in entity.Attributes.Where(x => x.IsPrimaryKey).ToList())
+                {
+                    if (count++ != 0)
+                        textBuffer += "\t\tAND ";
+                    else
+                        textBuffer += "\t\t";
+
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += entity.EntityName + ".[" + pk.AttributeName + "] = " + tempParamName + "\n";
+                }
+
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
 
 
                 // GetAll
