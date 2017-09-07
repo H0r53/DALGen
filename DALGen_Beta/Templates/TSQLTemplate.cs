@@ -192,11 +192,11 @@ namespace DALGen_Beta
                 textBuffer += "(\n";
 
                 count = 0;
-                foreach (var pk in entity.Attributes)
+                foreach (var pk in entity.Attributes.Where(x => !x.IsPrimaryKey).ToList())
                 {
                     tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
                     textBuffer += "\t" + tempParamName;
-                    if (++count < entity.Attributes.Count)
+                    if (++count < entity.Attributes.Where(x => !x.IsPrimaryKey).ToList().Count)
                         textBuffer += ",";
                     textBuffer += "\n";
                 }
@@ -209,21 +209,21 @@ namespace DALGen_Beta
                 textBuffer += "\tINSERT INTO " + entity.EntityName +"(";
 
                 count = 0;
-                foreach (var attribute in entity.Attributes)
+                foreach (var attribute in entity.Attributes.Where(x => !x.IsPrimaryKey).ToList())
                 {
                     textBuffer += attribute.AttributeName;
-                    if (++count < entity.Attributes.Count)
+                    if (++count < entity.Attributes.Where(x => !x.IsPrimaryKey).ToList().Count)
                         textBuffer += ",";
                     else
                         textBuffer += ")\n";
                 }
                 textBuffer += "\tVALUES (";
                 count = 0;
-                foreach (var pk in entity.Attributes)
+                foreach (var pk in entity.Attributes.Where(x => !x.IsPrimaryKey).ToList())
                 {
                     tempParamName = "@param" + pk.AttributeName;
                     textBuffer += tempParamName;
-                    if (++count < entity.Attributes.Count)
+                    if (++count < entity.Attributes.Where(x => !x.IsPrimaryKey).ToList().Count)
                         textBuffer += "\n\t\t,";
                     else
                         textBuffer += ")\n";
@@ -269,7 +269,7 @@ namespace DALGen_Beta
                 {
                     tempParamName = "@param" + pk.AttributeName;
                     textBuffer += pk.AttributeName + " = " + tempParamName;
-                    if (++count < entity.Attributes.Count)
+                    if (++count < entity.Attributes.Where(x => !x.IsPrimaryKey).ToList().Count)
                         textBuffer += "\n\t\t,";
                     else
                         textBuffer += "\n";
@@ -295,10 +295,136 @@ namespace DALGen_Beta
                 sw.WriteLine(textBuffer);
 
                 // Delete
+                tempSprocName = "usp_" + entity.EntityName + "_Delete";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "(\n";
+
+                count = 0;
+                foreach (var pk in entity.Attributes.Where(x => x.IsPrimaryKey))
+                {
+                    tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
+                    textBuffer += "\t" + tempParamName;
+                    if (++count < entity.Attributes.Where(x => x.IsPrimaryKey).ToList().Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += ")\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tDELETE FROM " + entity.EntityName + "\n";
+                textBuffer += "\tWHERE\n";
+                count = 0;
+                foreach (var pk in entity.Attributes.Where(x => x.IsPrimaryKey).ToList())
+                {
+                    if (count++ != 0)
+                        textBuffer += "\t\tAND ";
+                    else
+                        textBuffer += "\t\t";
+
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += entity.EntityName + ".[" + pk.AttributeName + "] = " + tempParamName + "\n";
+                }
+
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
+
+
                 // Search
+                tempSprocName = "usp_" + entity.EntityName + "_Search";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "(\n";
+
+                count = 0;
+                foreach (var pk in entity.Attributes)
+                {
+                    tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
+                    textBuffer += "\t" + tempParamName + " = NULL";
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += ")\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tSELECT\n";
+
+                count = 0;
+                foreach (var attribute in entity.Attributes)
+                {
+                    textBuffer += "\t\t" + entity.EntityName + ".[" + attribute.AttributeName + "] AS " + "[" + attribute.AttributeName + "]";
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += "\tFROM " + entity.EntityName + "\n";
+                textBuffer += "\tWHERE\n";
+                count = 0;
+                foreach (var pk in entity.Attributes)
+                {
+                    if (count++ != 0)
+                        textBuffer += "\t\tAND ";
+                    else
+                        textBuffer += "\t\t";
+
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += "COALESCE(" + entity.EntityName + ".[" + pk.AttributeName + "]," + GetDataTypeDefaultValue(pk.DataType) + ") = COALESCE(";
+                    textBuffer += tempParamName + "," + entity.EntityName + ".[" + pk.AttributeName + "]," + GetDataTypeDefaultValue(pk.DataType) + ")\n";
+                }
+
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
+
 
                 sw.Close();
             }
+        }
+
+        public String GetDataTypeDefaultValue(DataType dt)
+        {
+            String returnVal = String.Empty;
+            switch (dt)
+            {
+                case DataType.INT:
+                case DataType.FLOAT:
+                case DataType.DECIMAL:
+                case DataType.MONEY:
+                case DataType.BIGINT:
+                case DataType.NUMERIC:
+                case DataType.SMALLINT:
+                case DataType.SMALLMONEY:
+                case DataType.TINYINT:
+                    returnVal = "0";
+                    break;
+                default:
+                    returnVal = "''";
+                    break;
+            }
+            return returnVal;
         }
 
         public String GetTSQLDataTypeString(DataType dt, int? dtsize)
