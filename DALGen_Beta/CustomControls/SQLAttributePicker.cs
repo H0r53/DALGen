@@ -156,6 +156,9 @@ namespace DALGen_Beta
             {
                 bool validIdentity = false;
                 Item selectedItem = (Item)ddlDataType.SelectedItem;
+                if (selectedItem == null)
+                    return;
+
                 switch (selectedItem.Value)
                 {
                     case (int)DataType.INT:

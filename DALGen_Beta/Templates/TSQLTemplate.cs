@@ -98,11 +98,9 @@ namespace DALGen_Beta
                 textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
                 textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
                 textBuffer += "GO\n";
-                textBuffer += "\n";
                 sw.WriteLine(textBuffer);
 
-                textBuffer = "\n";
-                textBuffer += "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
                 textBuffer += "(\n";
 
                 count = 0;
@@ -153,9 +151,149 @@ namespace DALGen_Beta
 
 
                 // GetAll
-                // GetList
+                tempSprocName = "usp_" + entity.EntityName + "_GetAll";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tSELECT\n";
+
+                count = 0;
+                foreach (var attribute in entity.Attributes)
+                {
+                    textBuffer += "\t\t" + entity.EntityName + ".[" + attribute.AttributeName + "] AS " + "[" + attribute.AttributeName + "]";
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+                textBuffer += "\tFROM " + entity.EntityName + "\n";
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
+
                 // Add
+                tempSprocName = "usp_" + entity.EntityName + "_Add";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "(\n";
+
+                count = 0;
+                foreach (var pk in entity.Attributes)
+                {
+                    tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
+                    textBuffer += "\t" + tempParamName;
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += ")\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tINSERT INTO " + entity.EntityName +"(";
+
+                count = 0;
+                foreach (var attribute in entity.Attributes)
+                {
+                    textBuffer += attribute.AttributeName;
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    else
+                        textBuffer += ")\n";
+                }
+                textBuffer += "\tVALUES (";
+                count = 0;
+                foreach (var pk in entity.Attributes)
+                {
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += tempParamName;
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += "\n\t\t,";
+                    else
+                        textBuffer += ")\n";
+                }
+
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
+
+
                 // Update
+                tempSprocName = "usp_" + entity.EntityName + "_Update";
+                textBuffer = "\n";
+                textBuffer += "IF EXISTS (SELECT * FROM SYSOBJECTS WHERE ID = OBJECT_ID('" + tempSprocName + "') AND sysstat & 0xf = 4)\n";
+                textBuffer += "\tDROP PROCEDURE [dbo].[" + tempSprocName + "];\n";
+                textBuffer += "GO\n";
+                sw.WriteLine(textBuffer);
+
+                textBuffer = "CREATE PROCEDURE [dbo].[" + tempSprocName + "]\n";
+                textBuffer += "(\n";
+
+                count = 0;
+                foreach (var pk in entity.Attributes)
+                {
+                    tempParamName = "@param" + pk.AttributeName + " " + GetTSQLDataTypeString(pk.DataType, pk.AttributeSize);
+                    textBuffer += "\t" + tempParamName;
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += ",";
+                    textBuffer += "\n";
+                }
+
+                textBuffer += ")\n";
+                textBuffer += "AS\n";
+                textBuffer += "BEGIN\n";
+                textBuffer += "\tSET NOCOUNT ON\n";
+                textBuffer += "\tDECLARE @Err INT\n\n";
+                textBuffer += "\tUPDATE " + entity.EntityName + "\n";
+                textBuffer += "\tSET ";
+                count = 0;
+                foreach (var pk in entity.Attributes.Where(x => !x.IsPrimaryKey).ToList())
+                {
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += pk.AttributeName + " = " + tempParamName;
+                    if (++count < entity.Attributes.Count)
+                        textBuffer += "\n\t\t,";
+                    else
+                        textBuffer += "\n";
+                }
+
+                textBuffer += "\tWHERE\n";
+                count = 0;
+                foreach (var pk in entity.Attributes.Where(x => x.IsPrimaryKey).ToList())
+                {
+                    if (count++ != 0)
+                        textBuffer += "\t\tAND ";
+                    else
+                        textBuffer += "\t\t";
+
+                    tempParamName = "@param" + pk.AttributeName;
+                    textBuffer += entity.EntityName + ".[" + pk.AttributeName + "] = " + tempParamName + "\n";
+                }
+
+                textBuffer += "\n\tSET @Err = @@Error\n";
+                textBuffer += "\n\tRETURN @Err\n";
+                textBuffer += "END\n";
+                textBuffer += "GO\n\n";
+                sw.WriteLine(textBuffer);
+
                 // Delete
                 // Search
 
