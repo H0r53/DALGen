@@ -216,5 +216,10 @@ namespace DALGen_Beta
         {
             Environment.Exit(0);
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Coming Soon");
+        }
     }
 }

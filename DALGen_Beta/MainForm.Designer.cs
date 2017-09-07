@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,6 +39,9 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutDALGenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radOracle = new System.Windows.Forms.RadioButton();
+            this.radMySQL = new System.Windows.Forms.RadioButton();
+            this.radTSQL = new System.Windows.Forms.RadioButton();
             this.chkJava = new System.Windows.Forms.CheckBox();
             this.chkPython = new System.Windows.Forms.CheckBox();
             this.chkCSharp = new System.Windows.Forms.CheckBox();
@@ -56,9 +60,6 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnAddAttribute = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.radTSQL = new System.Windows.Forms.RadioButton();
-            this.radMySQL = new System.Windows.Forms.RadioButton();
-            this.radOracle = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +96,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -110,7 +111,7 @@
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -128,6 +129,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutDALGenToolStripMenuItem
             // 
@@ -152,6 +154,42 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Desired Output Files";
+            // 
+            // radOracle
+            // 
+            this.radOracle.AutoSize = true;
+            this.radOracle.Enabled = false;
+            this.radOracle.Location = new System.Drawing.Point(30, 126);
+            this.radOracle.Name = "radOracle";
+            this.radOracle.Size = new System.Drawing.Size(71, 21);
+            this.radOracle.TabIndex = 2;
+            this.radOracle.TabStop = true;
+            this.radOracle.Text = "Oracle";
+            this.radOracle.UseVisualStyleBackColor = true;
+            // 
+            // radMySQL
+            // 
+            this.radMySQL.AutoSize = true;
+            this.radMySQL.Enabled = false;
+            this.radMySQL.Location = new System.Drawing.Point(30, 99);
+            this.radMySQL.Name = "radMySQL";
+            this.radMySQL.Size = new System.Drawing.Size(75, 21);
+            this.radMySQL.TabIndex = 1;
+            this.radMySQL.TabStop = true;
+            this.radMySQL.Text = "MySQL";
+            this.radMySQL.UseVisualStyleBackColor = true;
+            // 
+            // radTSQL
+            // 
+            this.radTSQL.AutoSize = true;
+            this.radTSQL.Location = new System.Drawing.Point(30, 72);
+            this.radTSQL.Name = "radTSQL";
+            this.radTSQL.Size = new System.Drawing.Size(159, 21);
+            this.radTSQL.TabIndex = 0;
+            this.radTSQL.TabStop = true;
+            this.radTSQL.Text = "SQL Server (T-SQL)";
+            this.radTSQL.UseVisualStyleBackColor = true;
+            this.radTSQL.CheckedChanged += new System.EventHandler(this.radTSQL_CheckedChanged);
             // 
             // chkJava
             // 
@@ -317,42 +355,6 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Attributes";
             // 
-            // radTSQL
-            // 
-            this.radTSQL.AutoSize = true;
-            this.radTSQL.Location = new System.Drawing.Point(30, 72);
-            this.radTSQL.Name = "radTSQL";
-            this.radTSQL.Size = new System.Drawing.Size(159, 21);
-            this.radTSQL.TabIndex = 0;
-            this.radTSQL.TabStop = true;
-            this.radTSQL.Text = "SQL Server (T-SQL)";
-            this.radTSQL.UseVisualStyleBackColor = true;
-            this.radTSQL.CheckedChanged += new System.EventHandler(this.radTSQL_CheckedChanged);
-            // 
-            // radMySQL
-            // 
-            this.radMySQL.AutoSize = true;
-            this.radMySQL.Enabled = false;
-            this.radMySQL.Location = new System.Drawing.Point(30, 99);
-            this.radMySQL.Name = "radMySQL";
-            this.radMySQL.Size = new System.Drawing.Size(75, 21);
-            this.radMySQL.TabIndex = 1;
-            this.radMySQL.TabStop = true;
-            this.radMySQL.Text = "MySQL";
-            this.radMySQL.UseVisualStyleBackColor = true;
-            // 
-            // radOracle
-            // 
-            this.radOracle.AutoSize = true;
-            this.radOracle.Enabled = false;
-            this.radOracle.Location = new System.Drawing.Point(30, 126);
-            this.radOracle.Name = "radOracle";
-            this.radOracle.Size = new System.Drawing.Size(71, 21);
-            this.radOracle.TabIndex = 2;
-            this.radOracle.TabStop = true;
-            this.radOracle.Text = "Oracle";
-            this.radOracle.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -372,8 +374,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DALGen - The DAL Generator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
