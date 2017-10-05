@@ -14,16 +14,18 @@ namespace DALGen_Beta
     {
         private String _attributeName;
         private DataType _dataType;
-        private int? _attributeSize;
+        private String _attributeSize;
         private bool _isPrimaryKey;
+        private bool _autoIncrement;
         private bool _isForeignKey;
         private String _referenceEntity;
         private String _referenceAttribute;
 
         public string AttributeName { get => _attributeName; set => _attributeName = value; }
         public DataType DataType { get => _dataType; set => _dataType = value; }
-        public int? AttributeSize { get => _attributeSize; set => _attributeSize = value; }
+        public String AttributeSize { get => _attributeSize; set => _attributeSize = value; }
         public bool IsPrimaryKey { get => _isPrimaryKey; set => _isPrimaryKey = value; }
+        public bool AutoIncrement { get => _autoIncrement; set => _autoIncrement = value; }
         public bool IsForeignKey { get => _isForeignKey; set => _isForeignKey = value; }
         public string ReferenceEntity { get => _referenceEntity; set => _referenceEntity = value; }
         public string ReferenceAttribute { get => _referenceAttribute; set => _referenceAttribute = value; }
@@ -50,6 +52,8 @@ namespace DALGen_Beta
 
             if (dBMSType == DBMSType.TSQL)
                 LoadTSQLDropDown();
+            else if (dBMSType == DBMSType.MYSQL)
+                LoadMySQLDropDown();
             // Add support for other DBMS 
         }
 
@@ -62,17 +66,18 @@ namespace DALGen_Beta
             if (String.IsNullOrWhiteSpace(txtReferencingAttribute.Text) && chkForeignKey.Checked)
                 return InputValidationResult.INVALID_ATTRIBUTE_REF_ATTRIBUTE;
 
-            // This needs to be improved to support different size types, for example DECIMAL(8,2)
-            int tempInt = 0;
-            if (txtSize.Enabled && !String.IsNullOrWhiteSpace(txtSize.Text) && !Int32.TryParse(txtSize.Text,out tempInt))
-                return InputValidationResult.INVALID_ATTRIBUTE_SIZE;
+            // Since valid inputs range from numbers, comma seperated values, and keywords, no validation is implemented here.
+            //int tempInt = 0;
+            //if (txtSize.Enabled && String.IsNullOrWhiteSpace(txtSize.Text))
+            //    return InputValidationResult.INVALID_ATTRIBUTE_SIZE;
 
             // Now that we've passed validation, set the properties of this SQLAttributePicker
             AttributeName = txtAttributeName.Text;
-            AttributeSize = !txtSize.Enabled ? null : (int?)tempInt;
+            AttributeSize = !txtSize.Enabled ? String.Empty : txtSize.Text;
             DataType = (DataType)((Item)ddlDataType.SelectedItem).Value;
             ReferenceEntity = txtReferencingEntity.Text;
             ReferenceAttribute = txtReferencingAttribute.Text;
+            AutoIncrement = chkAutoInc.Checked;
             IsPrimaryKey = chkPrimaryKey.Checked;
             IsForeignKey = chkForeignKey.Checked;
 
@@ -89,6 +94,7 @@ namespace DALGen_Beta
         {
             txtSize.Text = String.Empty;
             txtSize.Enabled = false;
+            chkAutoInc.Enabled = false;
         }
 
         private void LoadTSQLDropDown()
@@ -120,6 +126,34 @@ namespace DALGen_Beta
             ddlDataType.Items.Add(new Item("IMAGE", (int)DataType.IMAGE));
         }
 
+        private void LoadMySQLDropDown()
+        {
+            ddlDataType.Items.Add(new Item("CHAR", (int)DataType.CHAR));
+            ddlDataType.Items.Add(new Item("VARCHAR", (int)DataType.VARCHAR));
+            ddlDataType.Items.Add(new Item("TINYTEXT", (int)DataType.TINYTEXT));
+            ddlDataType.Items.Add(new Item("TEXT", (int)DataType.TEXT));
+            ddlDataType.Items.Add(new Item("BLOB", (int)DataType.BLOB));
+            ddlDataType.Items.Add(new Item("MEDIUMTEXT", (int)DataType.MEDIUMTEXT));
+            ddlDataType.Items.Add(new Item("MEDIUMBLOB", (int)DataType.MEDIUMBLOB));
+            ddlDataType.Items.Add(new Item("LONGTEXT", (int)DataType.LONGTEXT));
+            ddlDataType.Items.Add(new Item("LONGBLOB", (int)DataType.LONGBLOB));
+            ddlDataType.Items.Add(new Item("ENUM", (int)DataType.ENUM));
+            ddlDataType.Items.Add(new Item("SET", (int)DataType.SET));
+            ddlDataType.Items.Add(new Item("TINYINT", (int)DataType.TINYINT));
+            ddlDataType.Items.Add(new Item("SMALLINT", (int)DataType.SMALLINT));
+            ddlDataType.Items.Add(new Item("MEDIUMINT", (int)DataType.MEDIUMINT));
+            ddlDataType.Items.Add(new Item("INT", (int)DataType.INT));
+            ddlDataType.Items.Add(new Item("BIGINT", (int)DataType.BIGINT));
+            ddlDataType.Items.Add(new Item("FLOAT", (int)DataType.FLOAT));
+            ddlDataType.Items.Add(new Item("DOUBLE", (int)DataType.DOUBLE));
+            ddlDataType.Items.Add(new Item("DECIMAL", (int)DataType.DECIMAL));
+            ddlDataType.Items.Add(new Item("DATE", (int)DataType.DATE));
+            ddlDataType.Items.Add(new Item("DATETIME", (int)DataType.DATETIME));
+            ddlDataType.Items.Add(new Item("TIMESTAMP", (int)DataType.TIMESTAMP));
+            ddlDataType.Items.Add(new Item("TIME", (int)DataType.TIME));
+            ddlDataType.Items.Add(new Item("YEAR", (int)DataType.YEAR));
+        }
+
         private void chkForeignKey_CheckedChanged(object sender, EventArgs e)
         {
             ToggleReferenceVisibility();
@@ -141,6 +175,11 @@ namespace DALGen_Beta
                 case (int)DataType.VARCHAR:
                 case (int)DataType.NCHAR:
                 case (int)DataType.NVARCHAR:
+                case (int)DataType.BINARY:
+                case (int)DataType.VARBINARY:
+                case (int)DataType.DECIMAL:
+                case (int)DataType.NUMERIC:
+                case (int)DataType.FLOAT:
                     txtSize.Enabled = true;
                     break;
                 default:
@@ -152,7 +191,18 @@ namespace DALGen_Beta
 
         private void chkPrimaryKey_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.chkPrimaryKey.Checked)
+            chkAutoInc.Enabled = this.chkPrimaryKey.Checked;
+
+            if (!this.chkPrimaryKey.Checked)
+            {
+                chkAutoInc.Checked = false;
+                chkAutoInc.Enabled = false;
+            }
+        }
+
+        private void chkAutoInc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAutoInc.Checked)
             {
                 bool validIdentity = false;
                 Item selectedItem = (Item)ddlDataType.SelectedItem;
@@ -172,7 +222,7 @@ namespace DALGen_Beta
                 }
                 if (!validIdentity)
                 {
-                    chkPrimaryKey.Checked = false;
+                    chkAutoInc.Checked = false;
                     MessageBox.Show(this, "Identity attribute must be of data type int, bigint, smallint, tinyint, or decimal or numeric with a scale of 0, unencrypted, and constrained to be nonnullable.", "Input Validation Error", MessageBoxButtons.OKCancel);
                 }
             }

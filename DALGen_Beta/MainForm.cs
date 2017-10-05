@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DALGen_Beta
@@ -30,11 +25,12 @@ namespace DALGen_Beta
             chkCSharp.Checked = false;
             chkJava.Checked = false;
             chkPython.Checked = false;
+            chkPHP.Checked = false;
             radTSQL.Checked = false;
             radMySQL.Checked = false;
             radOracle.Checked = false;
-            
-            txtSchemaName.Text = "dbo";
+
+            txtSchemaName.Text = String.Empty;
             txtEntityName.Text = String.Empty;
             txtNamespace.Text = String.Empty;
             radTSQL.Checked = true;
@@ -57,8 +53,8 @@ namespace DALGen_Beta
             picker.Location = new Point(0, (13 * (attributeList.Count)) + ((attributeList.Count) * picker.Height) + pnlAttributes.AutoScrollPosition.Y);
 
             attributeList.Add(picker);
-
             pnlAttributes.Controls.Add(picker);
+            picker.Focus();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -72,10 +68,10 @@ namespace DALGen_Beta
             else
             {
                 // Build DALEntity and DALAttributes
-                DALEntity entity = new DALEntity(txtEntityName.Text, txtSchemaName.Text, txtNamespace.Text);
+                DALEntity entity = new DALEntity(txtEntityName.Text, txtDatabaseName.Text, txtSchemaName.Text, txtNamespace.Text);
                 foreach(SQLAttributePicker attributePicker in attributeList)
                 {
-                    DALAttributes attribute = new DALAttributes(attributePicker.AttributeName, attributePicker.DataType, attributePicker.AttributeSize, attributePicker.IsPrimaryKey, attributePicker.IsForeignKey, attributePicker.ReferenceEntity, attributePicker.ReferenceAttribute);
+                    DALAttributes attribute = new DALAttributes(attributePicker.AttributeName, attributePicker.DataType, attributePicker.AttributeSize, attributePicker.IsPrimaryKey, attributePicker.AutoIncrement, attributePicker.IsForeignKey, attributePicker.ReferenceEntity, attributePicker.ReferenceAttribute);
                     entity.Attributes.Add(attribute);
                 }
 
@@ -90,6 +86,8 @@ namespace DALGen_Beta
                 if (radMySQL.Checked)
                 {
                     // Generate MySQL Create Table and Stored Procedure scripts.
+                    var mysqlGenerator = new MySQLTemplate();
+                    mysqlGenerator.GenerateContent(entity, outputPath);
                 }
                 if (radOracle.Checked)
                 {
@@ -97,19 +95,23 @@ namespace DALGen_Beta
                 }
                 if (chkCPP.Checked)
                 {
-                    // Generate C++ BLL/DAL
+                    // Generate C++ DAL
                 }
                 if (chkCSharp.Checked)
                 {
-                    // Generate C# BLL/DAL
+                    // Generate C# DAL
                 }
                 if (chkJava.Checked)
                 {
-                    // Generate Java BLL/DAL
+                    // Generate Java DAL
                 }
                 if (chkPython.Checked)
                 {
-                    // Generate Python BLL/DAL
+                    // Generate Python DAL
+                }
+                if (chkPHP.Checked)
+                {
+                    // Generate PHP DAL
                 }
 
                 MessageBox.Show(this, "Success", "Content Generated Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -122,17 +124,10 @@ namespace DALGen_Beta
 
             if (!chkCPP.Checked && !chkCSharp.Checked && !chkJava.Checked && !chkPython.Checked
                 && !radMySQL.Checked && !radOracle.Checked && !radTSQL.Checked)
-            {
                 result = InputValidationResult.NO_OUTPUT;
-            }
             else if (String.IsNullOrWhiteSpace(txtEntityName.Text))
                 result = InputValidationResult.INVALID_ENTITY_NAME;
-            else if (String.IsNullOrWhiteSpace(txtSchemaName.Text))
-                result = InputValidationResult.INVALID_SCHEMA_NAME;
-            else if (String.IsNullOrWhiteSpace(txtNamespace.Text))
-                result = InputValidationResult.INVALID_NAMESPACE;
             else
-            {
                 // Finally, validate the attribute list
                 foreach (var attribute in attributeList)
                 {
@@ -140,7 +135,7 @@ namespace DALGen_Beta
                         break;
                     result = attribute.ValidateInput();
                 }
-            }
+            
             
             return result;
         }
@@ -200,7 +195,7 @@ namespace DALGen_Beta
             if (radTSQL.Checked)
                 return DBMSType.TSQL;
             else if (radMySQL.Checked)
-                return DBMSType.ORACLE;
+                return DBMSType.MYSQL;
             else if (radOracle.Checked)
                 return DBMSType.ORACLE;
             else
@@ -220,6 +215,20 @@ namespace DALGen_Beta
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Coming Soon");
+        }
+
+        private void radMySQL_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlAttributes.Controls.Clear();
+            attributeList.Clear();
+
+            if (radMySQL.Checked)
+            {
+                // Add one attribute by default
+                var picker = new SQLAttributePicker(DBMSType.MYSQL);
+                attributeList.Add(picker);
+                pnlAttributes.Controls.Add(picker);
+            }
         }
     }
 }

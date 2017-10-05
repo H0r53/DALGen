@@ -39,6 +39,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutDALGenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkPHP = new System.Windows.Forms.CheckBox();
             this.radOracle = new System.Windows.Forms.RadioButton();
             this.radMySQL = new System.Windows.Forms.RadioButton();
             this.radTSQL = new System.Windows.Forms.RadioButton();
@@ -60,6 +61,8 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnAddAttribute = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.txtDatabaseName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +76,8 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(688, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(516, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -83,20 +87,20 @@
             this.newToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -105,13 +109,13 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -121,24 +125,25 @@
             this.helpToolStripMenuItem,
             this.aboutDALGenToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutDALGenToolStripMenuItem
             // 
             this.aboutDALGenToolStripMenuItem.Name = "aboutDALGenToolStripMenuItem";
-            this.aboutDALGenToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.aboutDALGenToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.aboutDALGenToolStripMenuItem.Text = "About DALGen";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkPHP);
             this.groupBox1.Controls.Add(this.radOracle);
             this.groupBox1.Controls.Add(this.radMySQL);
             this.groupBox1.Controls.Add(this.radTSQL);
@@ -148,20 +153,34 @@
             this.groupBox1.Controls.Add(this.chkCPP);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(25, 100);
+            this.groupBox1.Location = new System.Drawing.Point(19, 81);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(637, 170);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(478, 138);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Desired Output Files";
+            // 
+            // chkPHP
+            // 
+            this.chkPHP.AutoSize = true;
+            this.chkPHP.Location = new System.Drawing.Point(395, 103);
+            this.chkPHP.Margin = new System.Windows.Forms.Padding(2);
+            this.chkPHP.Name = "chkPHP";
+            this.chkPHP.Size = new System.Drawing.Size(48, 17);
+            this.chkPHP.TabIndex = 7;
+            this.chkPHP.Text = "PHP";
+            this.chkPHP.UseVisualStyleBackColor = true;
             // 
             // radOracle
             // 
             this.radOracle.AutoSize = true;
             this.radOracle.Enabled = false;
-            this.radOracle.Location = new System.Drawing.Point(30, 126);
+            this.radOracle.Location = new System.Drawing.Point(22, 102);
+            this.radOracle.Margin = new System.Windows.Forms.Padding(2);
             this.radOracle.Name = "radOracle";
-            this.radOracle.Size = new System.Drawing.Size(71, 21);
+            this.radOracle.Size = new System.Drawing.Size(56, 17);
             this.radOracle.TabIndex = 2;
             this.radOracle.TabStop = true;
             this.radOracle.Text = "Oracle";
@@ -170,21 +189,23 @@
             // radMySQL
             // 
             this.radMySQL.AutoSize = true;
-            this.radMySQL.Enabled = false;
-            this.radMySQL.Location = new System.Drawing.Point(30, 99);
+            this.radMySQL.Location = new System.Drawing.Point(22, 80);
+            this.radMySQL.Margin = new System.Windows.Forms.Padding(2);
             this.radMySQL.Name = "radMySQL";
-            this.radMySQL.Size = new System.Drawing.Size(75, 21);
+            this.radMySQL.Size = new System.Drawing.Size(60, 17);
             this.radMySQL.TabIndex = 1;
             this.radMySQL.TabStop = true;
             this.radMySQL.Text = "MySQL";
             this.radMySQL.UseVisualStyleBackColor = true;
+            this.radMySQL.CheckedChanged += new System.EventHandler(this.radMySQL_CheckedChanged);
             // 
             // radTSQL
             // 
             this.radTSQL.AutoSize = true;
-            this.radTSQL.Location = new System.Drawing.Point(30, 72);
+            this.radTSQL.Location = new System.Drawing.Point(22, 58);
+            this.radTSQL.Margin = new System.Windows.Forms.Padding(2);
             this.radTSQL.Name = "radTSQL";
-            this.radTSQL.Size = new System.Drawing.Size(159, 21);
+            this.radTSQL.Size = new System.Drawing.Size(120, 17);
             this.radTSQL.TabIndex = 0;
             this.radTSQL.TabStop = true;
             this.radTSQL.Text = "SQL Server (T-SQL)";
@@ -194,9 +215,11 @@
             // chkJava
             // 
             this.chkJava.AutoSize = true;
-            this.chkJava.Location = new System.Drawing.Point(527, 72);
+            this.chkJava.Enabled = false;
+            this.chkJava.Location = new System.Drawing.Point(395, 58);
+            this.chkJava.Margin = new System.Windows.Forms.Padding(2);
             this.chkJava.Name = "chkJava";
-            this.chkJava.Size = new System.Drawing.Size(60, 21);
+            this.chkJava.Size = new System.Drawing.Size(49, 17);
             this.chkJava.TabIndex = 5;
             this.chkJava.Text = "Java";
             this.chkJava.UseVisualStyleBackColor = true;
@@ -204,9 +227,11 @@
             // chkPython
             // 
             this.chkPython.AutoSize = true;
-            this.chkPython.Location = new System.Drawing.Point(527, 99);
+            this.chkPython.Enabled = false;
+            this.chkPython.Location = new System.Drawing.Point(395, 80);
+            this.chkPython.Margin = new System.Windows.Forms.Padding(2);
             this.chkPython.Name = "chkPython";
-            this.chkPython.Size = new System.Drawing.Size(74, 21);
+            this.chkPython.Size = new System.Drawing.Size(59, 17);
             this.chkPython.TabIndex = 6;
             this.chkPython.Text = "Python";
             this.chkPython.UseVisualStyleBackColor = true;
@@ -214,9 +239,11 @@
             // chkCSharp
             // 
             this.chkCSharp.AutoSize = true;
-            this.chkCSharp.Location = new System.Drawing.Point(396, 99);
+            this.chkCSharp.Enabled = false;
+            this.chkCSharp.Location = new System.Drawing.Point(297, 81);
+            this.chkCSharp.Margin = new System.Windows.Forms.Padding(2);
             this.chkCSharp.Name = "chkCSharp";
-            this.chkCSharp.Size = new System.Drawing.Size(47, 21);
+            this.chkCSharp.Size = new System.Drawing.Size(40, 17);
             this.chkCSharp.TabIndex = 4;
             this.chkCSharp.Text = "C#";
             this.chkCSharp.UseVisualStyleBackColor = true;
@@ -224,9 +251,11 @@
             // chkCPP
             // 
             this.chkCPP.AutoSize = true;
-            this.chkCPP.Location = new System.Drawing.Point(396, 72);
+            this.chkCPP.Enabled = false;
+            this.chkCPP.Location = new System.Drawing.Point(297, 58);
+            this.chkCPP.Margin = new System.Windows.Forms.Padding(2);
             this.chkCPP.Name = "chkCPP";
-            this.chkCPP.Size = new System.Drawing.Size(55, 21);
+            this.chkCPP.Size = new System.Drawing.Size(45, 17);
             this.chkCPP.TabIndex = 3;
             this.chkCPP.Text = "C++";
             this.chkCPP.UseVisualStyleBackColor = true;
@@ -234,18 +263,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(422, 42);
+            this.label2.Location = new System.Drawing.Point(316, 34);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 17);
+            this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Data Access Layer";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 42);
+            this.label1.Location = new System.Drawing.Point(20, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 17);
+            this.label1.Size = new System.Drawing.Size(129, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "DBMS Stored Procedures";
             // 
@@ -253,9 +284,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cooper Black", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(295, 42);
+            this.label3.Location = new System.Drawing.Point(221, 34);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 32);
+            this.label3.Size = new System.Drawing.Size(106, 25);
             this.label3.TabIndex = 2;
             this.label3.Text = "DALGen";
             // 
@@ -263,85 +295,95 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(233, 74);
+            this.label4.Location = new System.Drawing.Point(175, 60);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(268, 17);
+            this.label4.Size = new System.Drawing.Size(201, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "The future of automated code generation";
             // 
             // txtEntityName
             // 
-            this.txtEntityName.Location = new System.Drawing.Point(179, 315);
+            this.txtEntityName.Location = new System.Drawing.Point(134, 292);
+            this.txtEntityName.Margin = new System.Windows.Forms.Padding(2);
             this.txtEntityName.Name = "txtEntityName";
-            this.txtEntityName.Size = new System.Drawing.Size(483, 22);
-            this.txtEntityName.TabIndex = 8;
+            this.txtEntityName.Size = new System.Drawing.Size(363, 20);
+            this.txtEntityName.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 318);
+            this.label5.Location = new System.Drawing.Point(19, 294);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(148, 17);
+            this.label5.Size = new System.Drawing.Size(114, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "Entity / Relation Name";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 285);
+            this.label6.Location = new System.Drawing.Point(19, 268);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 17);
+            this.label6.Size = new System.Drawing.Size(77, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "Schema Name";
             // 
             // txtSchemaName
             // 
-            this.txtSchemaName.Location = new System.Drawing.Point(179, 283);
+            this.txtSchemaName.Location = new System.Drawing.Point(134, 266);
+            this.txtSchemaName.Margin = new System.Windows.Forms.Padding(2);
             this.txtSchemaName.Name = "txtSchemaName";
-            this.txtSchemaName.Size = new System.Drawing.Size(483, 22);
-            this.txtSchemaName.TabIndex = 7;
+            this.txtSchemaName.Size = new System.Drawing.Size(363, 20);
+            this.txtSchemaName.TabIndex = 9;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 351);
+            this.label7.Location = new System.Drawing.Point(19, 321);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 17);
+            this.label7.Size = new System.Drawing.Size(64, 13);
             this.label7.TabIndex = 8;
             this.label7.Text = "Namespace";
             // 
             // txtNamespace
             // 
-            this.txtNamespace.Location = new System.Drawing.Point(179, 348);
+            this.txtNamespace.Location = new System.Drawing.Point(134, 319);
+            this.txtNamespace.Margin = new System.Windows.Forms.Padding(2);
             this.txtNamespace.Name = "txtNamespace";
-            this.txtNamespace.Size = new System.Drawing.Size(483, 22);
-            this.txtNamespace.TabIndex = 9;
+            this.txtNamespace.Size = new System.Drawing.Size(363, 20);
+            this.txtNamespace.TabIndex = 11;
             // 
             // pnlAttributes
             // 
             this.pnlAttributes.AutoScroll = true;
             this.pnlAttributes.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pnlAttributes.Location = new System.Drawing.Point(25, 410);
+            this.pnlAttributes.Location = new System.Drawing.Point(19, 369);
+            this.pnlAttributes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlAttributes.Name = "pnlAttributes";
-            this.pnlAttributes.Size = new System.Drawing.Size(638, 359);
-            this.pnlAttributes.TabIndex = 10;
+            this.pnlAttributes.Size = new System.Drawing.Size(478, 292);
+            this.pnlAttributes.TabIndex = 12;
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(537, 790);
+            this.btnGenerate.Location = new System.Drawing.Point(403, 678);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(116, 37);
-            this.btnGenerate.TabIndex = 12;
+            this.btnGenerate.Size = new System.Drawing.Size(87, 30);
+            this.btnGenerate.TabIndex = 14;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
             // btnAddAttribute
             // 
-            this.btnAddAttribute.Location = new System.Drawing.Point(398, 790);
+            this.btnAddAttribute.Location = new System.Drawing.Point(298, 678);
+            this.btnAddAttribute.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddAttribute.Name = "btnAddAttribute";
-            this.btnAddAttribute.Size = new System.Drawing.Size(116, 37);
-            this.btnAddAttribute.TabIndex = 11;
+            this.btnAddAttribute.Size = new System.Drawing.Size(87, 30);
+            this.btnAddAttribute.TabIndex = 13;
             this.btnAddAttribute.Text = "Add Attribute";
             this.btnAddAttribute.UseVisualStyleBackColor = true;
             this.btnAddAttribute.Click += new System.EventHandler(this.btnAddAttribute_Click);
@@ -349,17 +391,38 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(25, 390);
+            this.label8.Location = new System.Drawing.Point(19, 353);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 17);
+            this.label8.Size = new System.Drawing.Size(51, 13);
             this.label8.TabIndex = 13;
             this.label8.Text = "Attributes";
             // 
+            // txtDatabaseName
+            // 
+            this.txtDatabaseName.Location = new System.Drawing.Point(134, 238);
+            this.txtDatabaseName.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDatabaseName.Name = "txtDatabaseName";
+            this.txtDatabaseName.Size = new System.Drawing.Size(363, 20);
+            this.txtDatabaseName.TabIndex = 8;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(19, 240);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "Database Name";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 850);
+            this.ClientSize = new System.Drawing.Size(516, 730);
+            this.Controls.Add(this.txtDatabaseName);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnAddAttribute);
             this.Controls.Add(this.btnGenerate);
@@ -377,6 +440,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -425,6 +489,9 @@
         private System.Windows.Forms.RadioButton radOracle;
         private System.Windows.Forms.RadioButton radMySQL;
         private System.Windows.Forms.RadioButton radTSQL;
+        private System.Windows.Forms.TextBox txtDatabaseName;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox chkPHP;
     }
 }
 

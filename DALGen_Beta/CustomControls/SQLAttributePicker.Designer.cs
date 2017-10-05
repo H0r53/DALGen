@@ -40,34 +40,38 @@
             this.txtReferencingEntity = new System.Windows.Forms.TextBox();
             this.lblReferencingAttribute = new System.Windows.Forms.Label();
             this.txtReferencingAttribute = new System.Windows.Forms.TextBox();
+            this.chkAutoInc = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ddlDataType
             // 
             this.ddlDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlDataType.FormattingEnabled = true;
-            this.ddlDataType.Location = new System.Drawing.Point(153, 33);
+            this.ddlDataType.Location = new System.Drawing.Point(115, 27);
+            this.ddlDataType.Margin = new System.Windows.Forms.Padding(2);
             this.ddlDataType.MaxDropDownItems = 30;
             this.ddlDataType.Name = "ddlDataType";
-            this.ddlDataType.Size = new System.Drawing.Size(134, 24);
+            this.ddlDataType.Size = new System.Drawing.Size(102, 21);
             this.ddlDataType.Sorted = true;
-            this.ddlDataType.TabIndex = 1;
+            this.ddlDataType.TabIndex = 15;
             this.ddlDataType.SelectedIndexChanged += new System.EventHandler(this.ddlDataType_SelectedIndexChanged);
             // 
             // txtSize
             // 
-            this.txtSize.Location = new System.Drawing.Point(394, 33);
+            this.txtSize.Location = new System.Drawing.Point(303, 27);
+            this.txtSize.Margin = new System.Windows.Forms.Padding(2);
             this.txtSize.Name = "txtSize";
-            this.txtSize.Size = new System.Drawing.Size(75, 22);
-            this.txtSize.TabIndex = 2;
+            this.txtSize.Size = new System.Drawing.Size(50, 20);
+            this.txtSize.TabIndex = 16;
             // 
             // chkPrimaryKey
             // 
             this.chkPrimaryKey.AutoSize = true;
-            this.chkPrimaryKey.Location = new System.Drawing.Point(486, 6);
+            this.chkPrimaryKey.Location = new System.Drawing.Point(364, 3);
+            this.chkPrimaryKey.Margin = new System.Windows.Forms.Padding(2);
             this.chkPrimaryKey.Name = "chkPrimaryKey";
-            this.chkPrimaryKey.Size = new System.Drawing.Size(120, 21);
-            this.chkPrimaryKey.TabIndex = 3;
+            this.chkPrimaryKey.Size = new System.Drawing.Size(92, 17);
+            this.chkPrimaryKey.TabIndex = 17;
             this.chkPrimaryKey.Text = "Is Primary Key";
             this.chkPrimaryKey.UseVisualStyleBackColor = true;
             this.chkPrimaryKey.CheckedChanged += new System.EventHandler(this.chkPrimaryKey_CheckedChanged);
@@ -75,10 +79,11 @@
             // chkForeignKey
             // 
             this.chkForeignKey.AutoSize = true;
-            this.chkForeignKey.Location = new System.Drawing.Point(486, 32);
+            this.chkForeignKey.Location = new System.Drawing.Point(364, 38);
+            this.chkForeignKey.Margin = new System.Windows.Forms.Padding(2);
             this.chkForeignKey.Name = "chkForeignKey";
-            this.chkForeignKey.Size = new System.Drawing.Size(120, 21);
-            this.chkForeignKey.TabIndex = 4;
+            this.chkForeignKey.Size = new System.Drawing.Size(93, 17);
+            this.chkForeignKey.TabIndex = 19;
             this.chkForeignKey.Text = "Is Foreign Key";
             this.chkForeignKey.UseVisualStyleBackColor = true;
             this.chkForeignKey.CheckedChanged += new System.EventHandler(this.chkForeignKey_CheckedChanged);
@@ -86,73 +91,94 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 5);
+            this.label1.Location = new System.Drawing.Point(2, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 17);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Attribute Name";
             // 
             // txtAttributeName
             // 
-            this.txtAttributeName.Location = new System.Drawing.Point(153, 4);
+            this.txtAttributeName.Location = new System.Drawing.Point(115, 3);
+            this.txtAttributeName.Margin = new System.Windows.Forms.Padding(2);
             this.txtAttributeName.Name = "txtAttributeName";
-            this.txtAttributeName.Size = new System.Drawing.Size(316, 22);
-            this.txtAttributeName.TabIndex = 0;
+            this.txtAttributeName.Size = new System.Drawing.Size(238, 20);
+            this.txtAttributeName.TabIndex = 14;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 38);
+            this.label2.Location = new System.Drawing.Point(2, 31);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 17);
+            this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Attribute Type";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(294, 36);
+            this.label3.Location = new System.Drawing.Point(220, 29);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 17);
+            this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Attribute Size";
+            this.label3.Text = "Size/Properties";
             // 
             // lblReferencingEntity
             // 
             this.lblReferencingEntity.AutoSize = true;
-            this.lblReferencingEntity.Location = new System.Drawing.Point(3, 69);
+            this.lblReferencingEntity.Location = new System.Drawing.Point(2, 56);
+            this.lblReferencingEntity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblReferencingEntity.Name = "lblReferencingEntity";
-            this.lblReferencingEntity.Size = new System.Drawing.Size(124, 17);
+            this.lblReferencingEntity.Size = new System.Drawing.Size(94, 13);
             this.lblReferencingEntity.TabIndex = 8;
             this.lblReferencingEntity.Text = "Referencing Entity";
             // 
             // txtReferencingEntity
             // 
-            this.txtReferencingEntity.Location = new System.Drawing.Point(153, 66);
+            this.txtReferencingEntity.Location = new System.Drawing.Point(115, 54);
+            this.txtReferencingEntity.Margin = new System.Windows.Forms.Padding(2);
             this.txtReferencingEntity.Name = "txtReferencingEntity";
-            this.txtReferencingEntity.Size = new System.Drawing.Size(134, 22);
-            this.txtReferencingEntity.TabIndex = 5;
+            this.txtReferencingEntity.Size = new System.Drawing.Size(102, 20);
+            this.txtReferencingEntity.TabIndex = 20;
             // 
             // lblReferencingAttribute
             // 
             this.lblReferencingAttribute.AutoSize = true;
-            this.lblReferencingAttribute.Location = new System.Drawing.Point(293, 69);
+            this.lblReferencingAttribute.Location = new System.Drawing.Point(220, 56);
+            this.lblReferencingAttribute.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblReferencingAttribute.Name = "lblReferencingAttribute";
-            this.lblReferencingAttribute.Size = new System.Drawing.Size(142, 17);
+            this.lblReferencingAttribute.Size = new System.Drawing.Size(107, 13);
             this.lblReferencingAttribute.TabIndex = 10;
             this.lblReferencingAttribute.Text = "Referencing Attribute";
             // 
             // txtReferencingAttribute
             // 
-            this.txtReferencingAttribute.Location = new System.Drawing.Point(441, 66);
+            this.txtReferencingAttribute.Location = new System.Drawing.Point(331, 54);
+            this.txtReferencingAttribute.Margin = new System.Windows.Forms.Padding(2);
             this.txtReferencingAttribute.Name = "txtReferencingAttribute";
-            this.txtReferencingAttribute.Size = new System.Drawing.Size(165, 22);
-            this.txtReferencingAttribute.TabIndex = 6;
+            this.txtReferencingAttribute.Size = new System.Drawing.Size(125, 20);
+            this.txtReferencingAttribute.TabIndex = 21;
+            // 
+            // chkAutoInc
+            // 
+            this.chkAutoInc.AutoSize = true;
+            this.chkAutoInc.Location = new System.Drawing.Point(364, 21);
+            this.chkAutoInc.Margin = new System.Windows.Forms.Padding(2);
+            this.chkAutoInc.Name = "chkAutoInc";
+            this.chkAutoInc.Size = new System.Drawing.Size(98, 17);
+            this.chkAutoInc.TabIndex = 18;
+            this.chkAutoInc.Text = "Auto Increment";
+            this.chkAutoInc.UseVisualStyleBackColor = true;
+            this.chkAutoInc.CheckedChanged += new System.EventHandler(this.chkAutoInc_CheckedChanged);
             // 
             // SQLAttributePicker
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkAutoInc);
             this.Controls.Add(this.txtReferencingAttribute);
             this.Controls.Add(this.lblReferencingAttribute);
             this.Controls.Add(this.txtReferencingEntity);
@@ -165,8 +191,9 @@
             this.Controls.Add(this.chkPrimaryKey);
             this.Controls.Add(this.txtSize);
             this.Controls.Add(this.ddlDataType);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SQLAttributePicker";
-            this.Size = new System.Drawing.Size(615, 94);
+            this.Size = new System.Drawing.Size(461, 76);
             this.Load += new System.EventHandler(this.SQLAttributePicker_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -187,5 +214,6 @@
         private System.Windows.Forms.TextBox txtReferencingEntity;
         private System.Windows.Forms.Label lblReferencingAttribute;
         private System.Windows.Forms.TextBox txtReferencingAttribute;
+        private System.Windows.Forms.CheckBox chkAutoInc;
     }
 }

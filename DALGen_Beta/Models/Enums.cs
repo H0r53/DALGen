@@ -33,11 +33,34 @@ namespace DALGen_Beta
         NTEXT,
         BINARY,
         VARBINARY,
-        IMAGE
+        IMAGE,
 
 
         // MySQL Specific
-
+        //CHAR,
+        //VARCHAR,
+        TINYTEXT,
+        //TEXT,
+        BLOB,
+        MEDIUMTEXT,
+        MEDIUMBLOB,
+        LONGTEXT,
+        LONGBLOB,
+        ENUM,
+        SET,
+        //TINYINT,
+        //SMALLINT,
+        MEDIUMINT,
+        //INT,
+        //BIGINT,
+        //FLOAT,
+        DOUBLE,
+        //DECIMAL,
+        //DATE,
+        //DATETIME,
+        TIMESTAMP,
+        TIME,
+        YEAR
 
         // Oracle Specific
     }
