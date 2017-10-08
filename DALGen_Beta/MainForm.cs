@@ -112,6 +112,8 @@ namespace DALGen_Beta
                 if (chkPHP.Checked)
                 {
                     // Generate PHP DAL
+                    var phpGenerator = new PHPTemplate();
+                    phpGenerator.GenerateContent(entity, outputPath);
                 }
 
                 MessageBox.Show(this, "Success", "Content Generated Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);

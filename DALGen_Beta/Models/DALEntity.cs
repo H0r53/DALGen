@@ -18,8 +18,8 @@ namespace DALGen_Beta
         {
             _entityName = entityName;
             _databaseName = databaseName;
-            _schemaName = String.IsNullOrWhiteSpace(schemaName) ? "DALGen" : schemaName;
-            _namespaceName = String.IsNullOrWhiteSpace(namespaceName) ? "DALGen" : namespaceName;
+            _schemaName = schemaName;
+            _namespaceName = namespaceName;
             _attributes = new List<DALAttributes>();
         }
 

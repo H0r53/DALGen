@@ -10,6 +10,18 @@ namespace DALGen_Beta
     {
         public abstract void GenerateContent(DALEntity entity, String outputFilePath);
 
+        public string UpperFirst(String input)
+        {
+            if (input.Length == 0) return input;
+            return char.ToUpper(input[0]) + input.Substring(1);
+        }
+
+        public string LowerFirst(String input)
+        {
+            if (input.Length == 0) return input;
+            return char.ToLower(input[0]) + input.Substring(1);
+        }
+
         public bool IsDateDataType(DataType dt)
         {
             bool returnVal = false;
@@ -33,7 +45,7 @@ namespace DALGen_Beta
             return returnVal;
         }
 
-        public String GetDataTypeDefaultValue(DataType dt)
+        public String GetDataTypeDefaultValue(DataType dt, String defaultStringVal = "''")
         {
             String returnVal = String.Empty;
             switch (dt)
@@ -52,7 +64,7 @@ namespace DALGen_Beta
                     returnVal = "0";
                     break;
                 default:
-                    returnVal = "''";
+                    returnVal = defaultStringVal;
                     break;
             }
             return returnVal;
