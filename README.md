@@ -1,5 +1,5 @@
 # DALGen - The OR/M generator
-##### Contributing Authors: Jacob Mills, Rob Smitha
+##### Contributing Authors: Jacob Mills (h0r53)
 
 This repo contains a Windows C# Forms application that is used to produce a Data Access Layer and Object Relational/Management system for various platforms.
 
@@ -13,3 +13,4 @@ This repo contains a Windows C# Forms application that is used to produce a Data
 * C++
 * Java
 * Python
+* PHP
