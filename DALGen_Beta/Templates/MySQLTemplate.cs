@@ -366,8 +366,8 @@ namespace DALGen_Beta
                     if (IsDateDataType(pk.DataType) && pk.DataType != DataType.DATE)
                     {
                         // For general purposes, any Date comparisons will be based on the calendar date and not the time element
-                        textBuffer += "COALESCE(CAST(" + entity.EntityName + ".`" + pk.AttributeName + "` AS DATE), CAST(GETDATE() AS DATE)) = COALESCE(CAST(";
-                        textBuffer += tempParamName + " AS DATE),CAST(" + entity.EntityName + ".`" + pk.AttributeName + "` AS DATE), CAST(GETDATE() AS DATE))";
+                        textBuffer += "COALESCE(CAST(" + entity.EntityName + ".`" + pk.AttributeName + "` AS DATE), CAST(NOW() AS DATE)) = COALESCE(CAST(";
+                        textBuffer += tempParamName + " AS DATE),CAST(" + entity.EntityName + ".`" + pk.AttributeName + "` AS DATE), CAST(NOW() AS DATE))";
                     }
                     else
                     {

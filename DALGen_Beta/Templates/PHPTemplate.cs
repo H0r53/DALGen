@@ -368,7 +368,7 @@ namespace DALGen_Beta
                     else
                         textBuffer += ");\n";
                 }
-                textBuffer += "\t\t\t\t$arr[] = $teamMember;\n";
+                textBuffer += "\t\t\t\t$arr[] = $" + LowerFirst(entity.EntityName) + ";\n";
                 textBuffer += "\t\t\t}\n";
                 textBuffer += "\t\t\treturn $arr;\n";
                 textBuffer += "\t\t}\n";
@@ -460,7 +460,7 @@ namespace DALGen_Beta
                     else
                         textBuffer += ");\n";
                 }
-                textBuffer += "\t\t\t\t$arr[] = $teamMember;\n";
+                textBuffer += "\t\t\t\t$arr[] = $" + LowerFirst(entity.EntityName) + ";\n";
                 textBuffer += "\t\t\t}\n";
                 textBuffer += "\t\t\treturn $arr;\n";
                 textBuffer += "\t\t}\n";
