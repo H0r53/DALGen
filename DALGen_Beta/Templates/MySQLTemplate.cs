@@ -57,9 +57,9 @@ namespace DALGen_Beta
 
                 // Create Table
                 textBuffer = "\n";
-                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "-- Create table\n";
-                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "\n";
                 sw.WriteLine(textBuffer);
 
@@ -106,9 +106,9 @@ namespace DALGen_Beta
                 // Generate Sprocs
                 ****************************/
                 textBuffer = "\n";
-                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "-- Create default SCRUD sprocs for this table\n";
-                textBuffer += "--------------------------------------------------------------\n";
+                textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "\n";
                 sw.WriteLine(textBuffer);
 
