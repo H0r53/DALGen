@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+Author: Jacob Mills
+Description: This abstract class defines operations that are generally reusable for any DAL entity, regardless of the programming language of the DAL being generated.
+*/ 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +13,40 @@ namespace DALGen_Beta
 {
     abstract class DALTemplate
     {
+        /// <summary>
+        /// This method should be overridden in derived classes to define the syntax of generated content
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="outputFilePath"></param>
         public abstract void GenerateContent(DALEntity entity, String outputFilePath);
 
+        /// <summary>
+        /// This method capitalizes the first character of a provided string and returns the result
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public string UpperFirst(String input)
         {
             if (input.Length == 0) return input;
             return char.ToUpper(input[0]) + input.Substring(1);
         }
 
+        /// <summary>
+        /// This method lower-cases the first character of a provided string and returns the result
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public string LowerFirst(String input)
         {
             if (input.Length == 0) return input;
             return char.ToLower(input[0]) + input.Substring(1);
         }
 
+        /// <summary>
+        /// This method returns a boolean indicating if the provided DataType is associated with a Date or Time
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         public bool IsDateDataType(DataType dt)
         {
             bool returnVal = false;
@@ -45,6 +70,12 @@ namespace DALGen_Beta
             return returnVal;
         }
 
+        /// <summary>
+        /// This method returns a string representing the default value of the given DataType
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="defaultStringVal"></param>
+        /// <returns></returns>
         public String GetDataTypeDefaultValue(DataType dt, String defaultStringVal = "''")
         {
             String returnVal = String.Empty;
@@ -70,6 +101,12 @@ namespace DALGen_Beta
             return returnVal;
         }
 
+        /// <summary>
+        /// This method returns the string version of a given DataType. Additionally, if a DataType size is provided the string is appropriately formated for a DBMS.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="dtsize"></param>
+        /// <returns></returns>
         public String GetDataTypeString(DataType dt, String dtsize)
         {
             String returnVal = "UNKNOWN";
