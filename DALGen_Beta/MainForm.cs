@@ -232,5 +232,11 @@ namespace DALGen_Beta
                 pnlAttributes.Controls.Add(picker);
             }
         }
+
+        private void aboutDALGenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
+        }
     }
 }

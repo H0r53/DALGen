@@ -140,6 +140,7 @@
             this.aboutDALGenToolStripMenuItem.Name = "aboutDALGenToolStripMenuItem";
             this.aboutDALGenToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.aboutDALGenToolStripMenuItem.Text = "About DALGen";
+            this.aboutDALGenToolStripMenuItem.Click += new System.EventHandler(this.aboutDALGenToolStripMenuItem_Click);
             // 
             // groupBox1
             // 

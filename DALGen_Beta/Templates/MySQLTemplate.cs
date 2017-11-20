@@ -54,8 +54,27 @@ namespace DALGen_Beta
                 textBuffer += "\n";
                 sw.WriteLine(textBuffer);
 
+                /****************************
+                // Remove existing objects
+                ****************************/
+                textBuffer = "\n";
+                textBuffer += "-- ------------------------------------------------------------\n";
+                textBuffer += "-- Drop existing objects\n";
+                textBuffer += "-- ------------------------------------------------------------\n\n";
+                
+                textBuffer += "DROP TABLE IF EXISTS `" + entity.SchemaName + "`.`" + entity.EntityName + "`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Load`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_LoadAll`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Add`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Update`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Delete`;\n";
+                textBuffer += "DROP PROCEDURE IF EXISTS `" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Search`;\n";
+                sw.WriteLine(textBuffer);
 
-                // Create Table
+                /****************************
+                // Create table
+                ****************************/
+
                 textBuffer = "\n";
                 textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "-- Create table\n";
@@ -88,18 +107,18 @@ namespace DALGen_Beta
                     if (attribute.IsPrimaryKey)
                     {
                         textBuffer += "CONSTRAINT pk_" + entity.EntityName + "_" + attribute.AttributeName
-                                   + " PRIMARY KEY (" + attribute.AttributeName + ")\n";
+                                   + " PRIMARY KEY (" + attribute.AttributeName + ")";
                     }
                     else if (attribute.IsForeignKey)
                     {
                         textBuffer += "CONSTRAINT fk_" + entity.EntityName + "_" + attribute.AttributeName + "_" + attribute.ReferenceEntity + "_"
                                    + attribute.ReferenceAttribute + " FOREIGN KEY (" + attribute.AttributeName + ") REFERENCES "
-                                   + attribute.ReferenceEntity + " (" + attribute.ReferenceAttribute + ")\n";
+                                   + attribute.ReferenceEntity + " (" + attribute.ReferenceAttribute + ")";
                     }
                     ++count;
                 }
 
-                textBuffer += ");\n";
+                textBuffer += "\n);\n";
                 sw.WriteLine(textBuffer);
 
                 /****************************
@@ -166,7 +185,8 @@ namespace DALGen_Beta
 
                 // LoadAll
                 tempSprocName = "`" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_LoadAll`";
-                textBuffer = "DELIMITER //\nCREATE PROCEDURE " + tempSprocName + "()\n";
+                textBuffer = "DELIMITER //\n";
+                textBuffer += "CREATE PROCEDURE " + tempSprocName + "\n()\n";
                 textBuffer += "BEGIN\n";
                 textBuffer += "\tSELECT\n";
 
@@ -184,7 +204,8 @@ namespace DALGen_Beta
 
                 // Add
                 tempSprocName = "`" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Add`";
-                textBuffer = "DELIMITER //\nCREATE PROCEDURE " + tempSprocName + "\n";
+                textBuffer = "DELIMITER //\n";
+                textBuffer += "CREATE PROCEDURE " + tempSprocName + "\n";
                 textBuffer += "(\n";
 
                 count = 0;
@@ -230,7 +251,8 @@ namespace DALGen_Beta
 
                 // Update
                 tempSprocName = "`" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Update`";
-                textBuffer = "DELIMITER //\nCREATE PROCEDURE " + tempSprocName + "\n";
+                textBuffer = "DELIMITER //\n";
+                textBuffer += "CREATE PROCEDURE " + tempSprocName + "\n";
                 textBuffer += "(\n";
 
                 count = 0;
@@ -282,7 +304,8 @@ namespace DALGen_Beta
 
                 // Delete
                 tempSprocName = "`" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Delete`";
-                textBuffer = "DELIMITER //\nCREATE PROCEDURE " + tempSprocName + "\n";
+                textBuffer = "DELIMITER //\n";
+                textBuffer += "CREATE PROCEDURE " + tempSprocName + "\n";
                 textBuffer += "(\n";
 
                 count = 0;
@@ -323,8 +346,8 @@ namespace DALGen_Beta
 
                 // Search
                 tempSprocName = "`" + entity.SchemaName + "`.`usp_" + entity.EntityName + "_Search`";
-
-                textBuffer = "DELIMITER //\nCREATE PROCEDURE " + tempSprocName + "\n";
+                textBuffer = "DELIMITER //\n";
+                textBuffer += "CREATE PROCEDURE " + tempSprocName + "\n";
                 textBuffer += "(\n";
 
                 count = 0;
