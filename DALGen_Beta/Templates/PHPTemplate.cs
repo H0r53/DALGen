@@ -172,6 +172,17 @@ namespace DALGen_Beta
                 sw.WriteLine(textBuffer);
 
                 /****************************
+                // Methods
+                ****************************/
+
+                // Skip procedure creation if no primary key is selected
+                if (entity.Attributes.Where(x => x.IsPrimaryKey).Count() < 1)
+                {
+                    sw.Close();
+                    return;
+                }
+
+                /****************************
                 // Public Methods
                 ****************************/
 

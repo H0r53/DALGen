@@ -124,6 +124,14 @@ namespace DALGen_Beta
                 /****************************
                 // Generate Sprocs
                 ****************************/
+
+                // Skip procedure creation if no primary key is selected
+                if (entity.Attributes.Where(x => x.IsPrimaryKey).Count() < 1)
+                {
+                    sw.Close();
+                    return;
+                }
+
                 textBuffer = "\n";
                 textBuffer += "-- ------------------------------------------------------------\n";
                 textBuffer += "-- Create default SCRUD sprocs for this table\n";

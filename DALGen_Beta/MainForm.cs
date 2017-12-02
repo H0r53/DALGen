@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
+
 
 namespace DALGen_Beta
 {
@@ -76,6 +78,13 @@ namespace DALGen_Beta
                 }
 
                 String outputPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                if (entity.Attributes.Where(x => x.IsPrimaryKey).Count() < 1)
+                {
+                    DialogResult result = MessageBox.Show("No primary key has been selected for this entity. Without a primary key several DAL method such as Load and Update cannot function appropriately. For this reason, only a class library will be generated. Would you like to continue?", "Warning", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                        return;
+                }
 
                 if (radTSQL.Checked)
                 {
