@@ -397,7 +397,7 @@ namespace DALGen_Beta
                 textBuffer += "\tpublic static function remove($paramId) {\n";
                 textBuffer += "\t\tinclude(self::getDbSettings());\n";
                 textBuffer += "\t\t$conn = new mysqli($servername, $username, $password, $dbname);\n";
-                textBuffer += "\t\t$stmt = $conn->prepare('CALL usp_" + entity.EntityName + "_Remove(?)');\n";
+                textBuffer += "\t\t$stmt = $conn->prepare('CALL usp_" + entity.EntityName + "_Delete(?)');\n";
                 textBuffer += "\t\t$stmt->bind_param('i', $paramId);\n";
                 textBuffer += "\t\t$stmt->execute();\n";
                 textBuffer += "\t}\n";
