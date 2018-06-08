@@ -181,6 +181,9 @@ namespace DALGen_Beta
                 case InputValidationResult.INVALID_ATTRIBUTE_REF_ATTRIBUTE:
                     message = "Foreign Keys require an entity's primary key as a reference attribute.";
                     break;
+                default:
+                    message = "A generic error occurred. Please review your configuration and report bugs to opendevtools@gmail.com";
+                    break;
             }
 
             // Display error dialog with a message for the result

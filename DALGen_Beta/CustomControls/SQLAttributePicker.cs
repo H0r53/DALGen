@@ -59,29 +59,37 @@ namespace DALGen_Beta
 
         public InputValidationResult ValidateInput()
         {
-            if (String.IsNullOrWhiteSpace(txtAttributeName.Text))
-                return InputValidationResult.INVALID_ATTRIBUTE_NAME;
-            if (String.IsNullOrWhiteSpace(txtReferencingEntity.Text) && chkForeignKey.Checked)
-                return InputValidationResult.INVALID_ATTRIBUTE_REF_ENTITY;
-            if (String.IsNullOrWhiteSpace(txtReferencingAttribute.Text) && chkForeignKey.Checked)
-                return InputValidationResult.INVALID_ATTRIBUTE_REF_ATTRIBUTE;
+            try
+            {
+                if (String.IsNullOrWhiteSpace(txtAttributeName.Text))
+                    return InputValidationResult.INVALID_ATTRIBUTE_NAME;
+                if (String.IsNullOrWhiteSpace(txtReferencingEntity.Text) && chkForeignKey.Checked)
+                    return InputValidationResult.INVALID_ATTRIBUTE_REF_ENTITY;
+                if (String.IsNullOrWhiteSpace(txtReferencingAttribute.Text) && chkForeignKey.Checked)
+                    return InputValidationResult.INVALID_ATTRIBUTE_REF_ATTRIBUTE;
 
-            // Since valid inputs range from numbers, comma seperated values, and keywords, no validation is implemented here.
-            //int tempInt = 0;
-            //if (txtSize.Enabled && String.IsNullOrWhiteSpace(txtSize.Text))
-            //    return InputValidationResult.INVALID_ATTRIBUTE_SIZE;
+                // Since valid inputs range from numbers, comma seperated values, and keywords, no validation is implemented here.
+                //int tempInt = 0;
+                //if (txtSize.Enabled && String.IsNullOrWhiteSpace(txtSize.Text))
+                //    return InputValidationResult.INVALID_ATTRIBUTE_SIZE;
 
-            // Now that we've passed validation, set the properties of this SQLAttributePicker
-            AttributeName = txtAttributeName.Text;
-            AttributeSize = !txtSize.Enabled ? String.Empty : txtSize.Text;
-            DataType = (DataType)((Item)ddlDataType.SelectedItem).Value;
-            ReferenceEntity = txtReferencingEntity.Text;
-            ReferenceAttribute = txtReferencingAttribute.Text;
-            AutoIncrement = chkAutoInc.Checked;
-            IsPrimaryKey = chkPrimaryKey.Checked;
-            IsForeignKey = chkForeignKey.Checked;
+                // Now that we've passed validation, set the properties of this SQLAttributePicker
+                AttributeName = txtAttributeName.Text;
+                AttributeSize = !txtSize.Enabled ? String.Empty : txtSize.Text;
+                DataType = (DataType)((Item)ddlDataType.SelectedItem).Value;
+                ReferenceEntity = txtReferencingEntity.Text;
+                ReferenceAttribute = txtReferencingAttribute.Text;
+                AutoIncrement = chkAutoInc.Checked;
+                IsPrimaryKey = chkPrimaryKey.Checked;
+                IsForeignKey = chkForeignKey.Checked;
 
-            return InputValidationResult.VALID;
+                return InputValidationResult.VALID;
+            }
+            catch (Exception e)
+            {
+                return InputValidationResult.GENERIC_ERROR;
+            }
+            
         }
 
         private void SQLAttributePicker_Load(object sender, EventArgs e)
