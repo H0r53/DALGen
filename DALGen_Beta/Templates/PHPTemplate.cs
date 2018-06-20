@@ -384,7 +384,7 @@ namespace DALGen_Beta
                 textBuffer += "\t\t\treturn $arr;\n";
                 textBuffer += "\t\t}\n";
                 textBuffer += "\t\telse {\n";
-                textBuffer += "\t\t\tdie(\"The query yielded zero results.No rows found.\");\n";
+                textBuffer += "\t\t\treturn array();\n";
                 textBuffer += "\t\t}\n";
                 textBuffer += "\t}\n";
                 sw.WriteLine(textBuffer);
@@ -476,7 +476,7 @@ namespace DALGen_Beta
                 textBuffer += "\t\t\treturn $arr;\n";
                 textBuffer += "\t\t}\n";
                 textBuffer += "\t\telse {\n";
-                textBuffer += "\t\t\tdie(\"The query yielded zero results.No rows found.\");\n";
+                textBuffer += "\t\t\treturn array();\n";
                 textBuffer += "\t\t}\n";
                 textBuffer += "\t}\n";
                 textBuffer += "}";
